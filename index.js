@@ -182,7 +182,7 @@ btns.forEach(el => {
 
     addRounds();
 
-    previous.textContent = `${userName}:${id} vs. Computer:${computer()}`;
+    // previous.textContent = `${userName}:${id} vs. Computer:${computer()}`;
   });
 });
 
