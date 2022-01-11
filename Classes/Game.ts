@@ -11,7 +11,7 @@ import {
     ties,
     winComputer,
     winPlayer
-} from "./selectors.js";
+} from "../selectors/selectors.js";
 
 class Game {
 
@@ -46,15 +46,13 @@ class Game {
 
         imgComputer.src = `images/${computer}.png`;
         imgPlayer.src = `images/${player}.png`;
-
-        this.rounds++;
         roundCounter.textContent = `Round ${this.rounds}`;
+        this.rounds++;
     }
 
     playerWins = () => {
         winPlayer.textContent = `${this.player.score}`;
-        container1.style.border = 'red solid';
-        container1.style.borderWidth = '0.5rem';
+        container1.style.border = 'red solid 0.5rem';
         container3.style.border = 'lightgray solid';
         container1.style.transition = 'all 1s';
         description.textContent = `${this.player.userName} wins this round!`;
@@ -62,8 +60,8 @@ class Game {
 
     computerWins = () => {
         winComputer.textContent = `${this.computer.score}`;
-        container3.style.border = 'red solid';
-        container3.style.borderWidth = '0.5rem';
+        container1.style.border = 'lightgray solid';
+        container3.style.border = 'red solid 0.5rem';
         container3.style.transition = 'all 1s';
         description.textContent = `Computer wins this round!`;
     };
@@ -75,10 +73,11 @@ class Game {
         description.textContent = `Nobody wins this round!`;
     };
 
-    css = () => {
+    domInit = () => {
         this.player.greeting();
         ties.textContent = `${this.tiesScore}`;
         winComputer.textContent = `${this.computer.score}`;
+        winPlayer.textContent = `${this.player.score}`;
         description.textContent = `Who wins this round?`;
         imgPlayer.src = 'images/question.png';
         imgComputer.src = 'images/question.png';
@@ -93,7 +92,7 @@ class Game {
         this.player.score = 0;
         this.tiesScore = 0;
         this.computer.score = 0;
-        this.css()
+        this.domInit()
     }
 
     restart = () => btnRestart.addEventListener('click', this.init)
