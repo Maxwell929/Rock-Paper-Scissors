@@ -1,4 +1,4 @@
-import {greetingDisp} from "./selectors.js";
+import {greetingDisp} from "../selectors.js";
 
 class Player {
 
