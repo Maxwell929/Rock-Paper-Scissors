@@ -1,64 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/styles.css" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="styles/styles.css"/>
 
     <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,500;1,300&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,500;1,300&display=swap"
+            rel="stylesheet"
     />
 
     <title>😎️ Rock, Paper Scissors 😎️</title>
-  </head>
-  <body>
-  <section>
+</head>
+<body>
+<section>
 
     <h1 class="greeting">Hi</h1>
     <h1 class="title">Let's play Rock,Paper, Scissors!</h1>
     <div class="round">
-      <h2 class="Round-counter">Round </h2>
-      <h2 class="Insert-winner">Who wins this round?</h2>
+        <h2 class="Round-counter">Round </h2>
+        <h2 class="Insert-winner">Who wins this round?</h2>
     </div>
 
     <div class="box">
-      <div class="container1">
-        <h2 class="description Player-name">Player</h2>
-        <h3 class="points">Win</h3>
-        <h2 class= "Player-win">0</h2>
-        <div>
-          <img class="img-player" src="images/question.png" alt="" />
+        <div class="container1">
+            <h2 class="description Player-name">Player</h2>
+            <h3 class="points">Win</h3>
+            <h2 class="Player-win">0</h2>
+            <div>
+                <img class="img-player" src="images/question.png" alt=""/>
+            </div>
+            <div>
+                <button data-choice="rock"  class="button">Rock</button>
+                <button data-choice="paper"  class="button">Paper</button>
+                <button data-choice="scissors"  class="button">Scissors</button>
+            </div>
         </div>
-        <div>
-          <button id="1" class="button">Rock</button>
-          <button id="2" class="button">Paper</button>
-          <button id="3" class="button">Scissors</button>
-        </div>
-      </div>
 
-      <div class="container2">
-        <h2 class="description"> </h2>
-        <h3 class="points">Ties</h3>
-        <h2 class="ties">0</h2>
-        <br>
-        <!-- <h2 class="previous"> Last Round</h2> -->
-        <button class="button-restart">RESTART</button>
-      </div>
-
-      <div class="container3">
-        <h2 class="description">Computer</h2>
-        <h3 class="points">Win</h3>
-        <h2 class="Computer-win">0</h2>
-        <div>
-          <img class="img-computer " src="images/question.png" alt="" />
+        <div class="container2">
+            <h2 class="description"></h2>
+            <h3 class="points">Ties</h3>
+            <h2 class="ties">0</h2>
+            <br>
+            <!-- <h2 class="previous"> Last Round</h2> -->
+            <button class="button-restart">RESTART</button>
         </div>
-      </div>
+
+        <div class="container3">
+            <h2 class="description">Computer</h2>
+            <h3 class="points">Win</h3>
+            <h2 class="Computer-win">0</h2>
+            <div>
+                <img class="img-computer " src="images/question.png" alt=""/>
+            </div>
+        </div>
     </div>
-  </section>
-    <script type="module" src="index.js"></script>
-  </body>
+</section>
+<script type="module" src="index.js"></script>
+</body>
 </html>

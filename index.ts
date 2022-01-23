@@ -11,10 +11,9 @@ game.init();
 
 btns.forEach(el => {
     el.addEventListener('click', function () {
-        const id = this.id;
 
-        const playerChoice: string = game.options[`${id}`];
-        const compChoice: string = game.options[`${game.computer.getRandomNumb()}`];
+        const playerChoice: string = this.dataset.choice;
+        const compChoice: string = game.computer.radomChoice();
 
         game.comparison(playerChoice, compChoice);
     });

@@ -20,12 +20,6 @@ class Game {
     player: Player;
     computer: Computer;
 
-    options = {
-        1: "rock",
-        2: "paper",
-        3: "scissor",
-    }
-
     constructor(playerName: string) {
         this.player = new Player(playerName);
         this.computer = new Computer();
@@ -33,7 +27,7 @@ class Game {
 
     comparison = (player: string, computer: string) => {
 
-        if (computer === this.options["1"] && player === this.options["2"] || computer === this.options["2"] && player === this.options["3"] || computer === this.options["3"] && player === this.options["1"]) {
+        if (computer === "rock" && player === "paper" || computer === "paper" && player === "scissors" || computer === "scissors" && player === "rock") {
             this.player.score++;
             this.playerWins();
         } else if (player === computer) {
