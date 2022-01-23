@@ -63,12 +63,12 @@ section {
 .container-item {
 }
 
-.img-player {
+.player__image {
     height: 7rem;
     margin: 2rem 0;
 }
 
-.img-computer {
+.computer__image {
     height: 7rem;
     margin: 2rem 0;
 }

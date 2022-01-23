@@ -2,6 +2,7 @@ import Player from "./Player.js";
 import Computer from "./Computer.js";
 import {
     btnRestart,
+    btns,
     container1,
     container3,
     description,
@@ -20,13 +21,25 @@ class Game {
     player: Player;
     computer: Computer;
 
+
     constructor(playerName: string) {
         this.player = new Player(playerName);
         this.computer = new Computer();
+        this.play(this.player.choice, this.computer, this.comparison);
+        this.restart();
+    }
+
+    play = (playerChoice: string, computerChoice, compare) => {
+        btns.forEach((el) => el.addEventListener("click", function () {
+            const choiceHuman = `${el.dataset.choice}`;
+           compare(choiceHuman, computerChoice.radomChoice());
+        }));
     }
 
     comparison = (player: string, computer: string) => {
-
+        this.rounds++;
+        imgComputer.src = `images/${computer}.png`;
+        roundCounter.textContent = `Round ${this.rounds}`;
         if (computer === "rock" && player === "paper" || computer === "paper" && player === "scissors" || computer === "scissors" && player === "rock") {
             this.player.score++;
             this.playerWins();
@@ -38,10 +51,9 @@ class Game {
             this.computerWins();
         }
 
-        imgComputer.src = `images/${computer}.png`;
+        console.log(player);
+
         imgPlayer.src = `images/${player}.png`;
-        roundCounter.textContent = `Round ${this.rounds}`;
-        this.rounds++;
     }
 
     playerWins = () => {
