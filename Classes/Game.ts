@@ -23,7 +23,6 @@ class Game {
     constructor(playerName: string) {
         this.player = new Player(playerName);
         this.computer = new Computer();
-        // this.play(this.player.choice, this.computer, this.comparison);
         this.play1(document.querySelector(".container__button"));
         this.restart();
     }
