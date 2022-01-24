@@ -24,11 +24,11 @@ section {
     color: #cd5c5c;
 }
 
-.description {
+.player__name {
     color: #cd5c5c;
 }
 
-.points {
+.wins {
     color: rgb(197, 196, 196);
 }
 
@@ -110,7 +110,7 @@ section {
     text-decoration: none;
 }
 
-.button-restart {
+.button--restart {
     background-color: #cd5c5c;
     color: #fff;
     border-style: none;

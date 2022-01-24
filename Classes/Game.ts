@@ -96,7 +96,6 @@ class Game {
         tiesCounter.textContent = `${this.tiesScore = 0}`;
         winComputer.textContent = `${this.computer.score = 0}`;
         winPlayer.textContent = `${this.player.score = 0}`;
-        tiesCounter.textContent = `${this.tiesScore = 0}`;
         roundCounter.textContent = `Round ${this.rounds = 1}`;
         description.textContent = `Who wins this round?`;
         humanPlayerBox.classList.remove('player--has-won');
