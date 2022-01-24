@@ -43,6 +43,7 @@ section {
     border: lightgray solid;
     border-radius: 20px;
     min-height: 30rem;
+    transition: all 1s;
 }
 
 .player--has-won {
@@ -60,6 +61,7 @@ section {
     text-align: center;
     border-radius: 20px;
     border: lightgray solid;
+    transition: all 1s;
 }
 
 .computer--has-lost {

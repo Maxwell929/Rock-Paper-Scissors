@@ -46,7 +46,6 @@ class Game {
 
     getWinner = (playerChoice: GameChoice, computerChoice: GameChoice): GameWinner => {
 
-
         if (computerChoice === "rock" && playerChoice === "paper" || computerChoice === "paper" && playerChoice === "scissors" || computerChoice === "scissors" && playerChoice === "rock") {
             return "player";
         } else if (playerChoice === computerChoice) {
@@ -71,13 +70,12 @@ class Game {
             this.tiesScore++;
             this.noWinner();
         }
-
     };
 
     playerWins = () => {
         winPlayer.textContent = `${this.player.score}`;
         humanPlayerBox.classList.add('player--has-won');
-        computerPlayerBox.classList.remove("player--has-won");
+        computerPlayerBox.classList.remove("computer--has-won");
     };
 
     computerWins = () => {
@@ -94,29 +92,20 @@ class Game {
         description.textContent = `Nobody wins this round!`;
     };
 
-    domInit = () => {
-        this.player.greetPlayer();
-        tiesCounter.textContent = `${this.tiesScore}`;
-        winComputer.textContent = `${this.computer.score}`;
-        winPlayer.textContent = `${this.player.score}`;
+    newGame = () => {
+        tiesCounter.textContent = `${this.tiesScore = 0}`;
+        winComputer.textContent = `${this.computer.score = 0}`;
+        winPlayer.textContent = `${this.player.score = 0}`;
+        tiesCounter.textContent = `${this.tiesScore = 0}`;
+        roundCounter.textContent = `Round ${this.rounds = 1}`;
         description.textContent = `Who wins this round?`;
+        humanPlayerBox.classList.remove('player--has-won');
+        computerPlayerBox.classList.remove("computer--has-won");
         humanPlayerImage.src = 'images/question.png';
         computerPlayerImage.src = 'images/question.png';
-        tiesCounter.textContent = `${this.tiesScore}`;
-        humanPlayerBox.style.border = 'lightgray solid';
-        computerPlayerBox.style.border = 'lightgray solid';
-        roundCounter.textContent = `Round ${this.rounds}`;
-    };
-
-    init = () => {
-        this.rounds = 1;
-        this.player.score = 0;
-        this.tiesScore = 0;
-        this.computer.score = 0;
-        this.domInit()
     }
 
-    restart = () => btnRestart.addEventListener('click', this.init)
+    restart = () => btnRestart.addEventListener('click', this.newGame)
 }
 
 export default Game;
