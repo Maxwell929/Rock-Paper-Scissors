@@ -1,4 +1,4 @@
-import {greetingDisp} from "../selectors/selectors.js";
+const greetingHumanPlayer = document.querySelector('.greeting');
 
 class Player {
 
@@ -8,11 +8,11 @@ class Player {
 
     constructor(name: string) {
         this.userName = name;
+        this.greetPlayer();
     }
 
-    greeting = () => {
-        greetingDisp.textContent = `Hi ${this.userName}!`;
-    };
+    greetPlayer = () => greetingHumanPlayer.textContent = `Hi ${this.userName}!`
+
 }
 
 export default Player;

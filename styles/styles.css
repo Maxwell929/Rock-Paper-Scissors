@@ -36,7 +36,7 @@ section {
     display: flex;
 }
 
-.container1 {
+.player {
     width: 100%;
     height: 100%;
     text-align: center;
@@ -45,13 +45,15 @@ section {
     min-height: 30rem;
 }
 
-.container2 {
-    width: 100%;
-    height: 100%;
-    text-align: center;
+.player--has-won {
+    border: red solid 0.5rem!important;
+    transition: all 1s;
+}
+.player--has-lost {
+    border: lightgray solid;
 }
 
-.container3 {
+.computer {
     width: 100%;
     height: 100%;
     min-height: 30rem;
@@ -60,15 +62,28 @@ section {
     border: lightgray solid;
 }
 
-.container-item {
+.computer--has-lost {
+    border: lightgray solid;
+}
+.computer--has-won {
+    border: red solid 0.5rem!important;
+    transition: all 1s;
 }
 
-.player__image {
+.ties__counter {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+
+
+.humanPlayer__image {
     height: 7rem;
     margin: 2rem 0;
 }
 
-.computer__image {
+.computerPlayer__image {
     height: 7rem;
     margin: 2rem 0;
 }
@@ -85,7 +100,7 @@ section {
     text-decoration: none;
 }
 
-.button:hover .button:active {
+.button:hover, .button:active {
     color: lightsalmon;
     border-style: none;
     font-weight: 400;

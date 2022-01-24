@@ -22,25 +22,25 @@
     <h1 class="title">Let's play Rock,Paper, Scissors!</h1>
     <div class="round">
         <h2 class="round__counter">Round 1 </h2>
-        <h2 class="insert__winner">Who wins this round?</h2>
+        <h2 class="current-winner">Who wins this round?</h2>
     </div>
 
     <div class="box">
-        <div class="container1">
+        <div class="player">
             <h2 class="description Player-name">Player</h2>
             <h3 class="points">Win</h3>
             <h2 class="player__win-counter">0</h2>
             <div>
-                <img class="player__image" src="images/question.png" alt=""/>
+                <img class="humanPlayer__image" src="images/question.png" alt=""/>
             </div>
-            <div class="container__button">
+            <div class="humanPlayer__choices">
                 <button data-choice="rock" class="button">Rock</button>
                 <button data-choice="paper" class="button">Paper</button>
                 <button data-choice="scissors" class="button">Scissors</button>
             </div>
         </div>
 
-        <div class="container2">
+        <div class="ties__counter">
             <h2 class="description"></h2>
             <h3 class="points">Ties</h3>
             <h2 class="ties">0</h2>
@@ -49,12 +49,12 @@
             <button class="button-restart">RESTART</button>
         </div>
 
-        <div class="container3">
+        <div class="computer">
             <h2 class="description">Computer</h2>
             <h3 class="points">Win</h3>
             <h2 class="computer__win-counter">0</h2>
             <div>
-                <img class="computer__image" src="images/question.png" alt=""/>
+                <img class="computerPlayer__image" src="images/question.png" alt=""/>
             </div>
         </div>
     </div>

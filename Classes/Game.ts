@@ -2,16 +2,19 @@ import Player from "./Player.js";
 import Computer from "./Computer.js";
 import {
     btnRestart,
-    container1,
-    container3,
+    computerPlayerBox,
+    computerPlayerImage,
     description,
-    imgComputer,
-    imgPlayer,
+    humanPlayerBox,
+    humanPlayerImage,
     roundCounter,
-    ties,
+    tiesCounter,
     winComputer,
     winPlayer
 } from "../selectors/selectors.js";
+
+type GameWinner = "player" | "computer" | "ties";
+export  type GameChoice = "rock" | "paper" | "scissors";
 
 class Game {
 
@@ -23,75 +26,85 @@ class Game {
     constructor(playerName: string) {
         this.player = new Player(playerName);
         this.computer = new Computer();
-        this.play1(document.querySelector(".container__button"));
+        this.play(document.querySelector(".humanPlayer__choices"));
         this.restart();
     }
 
-    play1 = (buttonElem: HTMLElement) => {
+    play = (buttonElem: HTMLElement) => {
         buttonElem.onclick = this.onClick.bind(this);
     }
 
     onClick(event) {
-        let action = event.target.dataset.choice;
-        if (action) {
-            this.player.choice = action;
-            this.comparison(action, this.computer.radomChoice());
+        const choicePlayer = this.player.choice = event.target.dataset.choice;
+        if (choicePlayer) {
+            const choiceComputer = this.computer.getRandomChoice();
+            this.renderGameResult(this.getWinner(choicePlayer, choiceComputer));
+            computerPlayerImage.src = `images/${choiceComputer}.png`;
+            humanPlayerImage.src = `images/${choicePlayer}.png`;
         }
     }
 
-    comparison = (player: string, computer: string) => {
+    getWinner = (playerChoice: GameChoice, computerChoice: GameChoice): GameWinner => {
 
-        if (computer === "rock" && player === "paper" || computer === "paper" && player === "scissors" || computer === "scissors" && player === "rock") {
+
+        if (computerChoice === "rock" && playerChoice === "paper" || computerChoice === "paper" && playerChoice === "scissors" || computerChoice === "scissors" && playerChoice === "rock") {
+            return "player";
+        } else if (playerChoice === computerChoice) {
+            return "ties";
+        } else {
+            return "computer";
+        }
+    }
+
+    renderGameResult = (winner: GameWinner): void => {
+        this.rounds++;
+        roundCounter.textContent = `Round ${this.rounds}`;
+
+        if (winner === "player") {
             this.player.score++;
             this.playerWins();
-        } else if (player === computer) {
-            this.tiesScore++;
-            this.noWinner();
-        } else {
+            description.textContent = `${this.player.userName} wins this round!`;
+        } else if (winner === "computer") {
             this.computer.score++;
             this.computerWins();
+        } else {
+            this.tiesScore++;
+            this.noWinner();
         }
 
-        roundCounter.textContent = `Round ${this.rounds}`;
-        this.rounds++;
-        imgComputer.src = `images/${computer}.png`;
-        imgPlayer.src = `images/${player}.png`;
-    }
+    };
 
     playerWins = () => {
         winPlayer.textContent = `${this.player.score}`;
-        container1.style.border = 'red solid 0.5rem';
-        container3.style.border = 'lightgray solid';
-        container1.style.transition = 'all 1s';
-        description.textContent = `${this.player.userName} wins this round!`;
+        humanPlayerBox.classList.add('player--has-won');
+        computerPlayerBox.classList.remove("player--has-won");
     };
 
     computerWins = () => {
         winComputer.textContent = `${this.computer.score}`;
-        container1.style.border = 'lightgray solid';
-        container3.style.border = 'red solid 0.5rem';
-        container3.style.transition = 'all 1s';
         description.textContent = `Computer wins this round!`;
+        computerPlayerBox.classList.add("computer--has-won");
+        humanPlayerBox.classList.remove('player--has-won');
     };
 
     noWinner = () => {
-        ties.textContent = `${this.tiesScore}`;
-        container1.style.border = 'lightgray solid';
-        container3.style.border = 'lightgray solid';
+        tiesCounter.textContent = `${this.tiesScore}`;
+        humanPlayerBox.classList.remove("player--has-won");
+        computerPlayerBox.classList.remove("computer--has-won");
         description.textContent = `Nobody wins this round!`;
     };
 
     domInit = () => {
-        this.player.greeting();
-        ties.textContent = `${this.tiesScore}`;
+        this.player.greetPlayer();
+        tiesCounter.textContent = `${this.tiesScore}`;
         winComputer.textContent = `${this.computer.score}`;
         winPlayer.textContent = `${this.player.score}`;
         description.textContent = `Who wins this round?`;
-        imgPlayer.src = 'images/question.png';
-        imgComputer.src = 'images/question.png';
-        ties.textContent = `${this.tiesScore}`;
-        container1.style.border = 'lightgray solid';
-        container3.style.border = 'lightgray solid';
+        humanPlayerImage.src = 'images/question.png';
+        computerPlayerImage.src = 'images/question.png';
+        tiesCounter.textContent = `${this.tiesScore}`;
+        humanPlayerBox.style.border = 'lightgray solid';
+        computerPlayerBox.style.border = 'lightgray solid';
         roundCounter.textContent = `Round ${this.rounds}`;
     };
 
