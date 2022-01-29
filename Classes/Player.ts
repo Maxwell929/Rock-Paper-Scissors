@@ -1,7 +1,6 @@
 const greetingHumanPlayer = document.querySelector('.greeting');
 
 class Player {
-
     userName: string;
     score: number = 0;
     choice: string = "";

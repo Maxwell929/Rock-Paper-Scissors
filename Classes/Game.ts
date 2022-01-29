@@ -1,51 +1,42 @@
 import Player from "./Player.js";
 import Computer from "./Computer.js";
-import {
-    btnRestart,
-    computerPlayerBox,
-    computerPlayerImage,
-    description,
-    humanPlayerBox,
-    humanPlayerImage,
-    roundCounter,
-    tiesCounter,
-    winComputer,
-    winPlayer
-} from "../selectors/selectors.js";
 
 type GameWinner = "player" | "computer" | "ties";
 export  type GameChoice = "rock" | "paper" | "scissors";
 
 class Game {
-
+    element: Element;
     tiesScore: number = 0;
     rounds: number = 1;
     player: Player;
     computer: Computer;
 
-    constructor(playerName: string) {
+    constructor(element: Element, playerName: string) {
+        this.element = element;
         this.player = new Player(playerName);
         this.computer = new Computer();
-        this.play(document.querySelector(".humanPlayer__choices"));
-        this.restart();
+        const choicesElement = element.querySelector('.humanPlayer__choices');
+        choicesElement.addEventListener('click', (e) => this.onClick(e));
+
+        const btnRestart = element.querySelector('.button--restart');
+        btnRestart.addEventListener('click', this.newGame)
     }
 
-    play = (buttonElem: HTMLElement) => {
-        buttonElem.onclick = this.onClick.bind(this);
-    }
-
-    onClick(event) {
-        const choicePlayer = this.player.choice = event.target.dataset.choice;
-        if (choicePlayer) {
-            const choiceComputer = this.computer.getRandomChoice();
-            this.renderGameResult(this.getWinner(choicePlayer, choiceComputer));
-            computerPlayerImage.src = `images/${choiceComputer}.png`;
-            humanPlayerImage.src = `images/${choicePlayer}.png`;
+    onClick(e) {
+        const choicePlayer = e.target.dataset.choice;
+        if (!choicePlayer) {
+            return;
         }
+
+        const choiceComputer = this.computer.getRandomChoice();
+        this.setPlayerImagChoice('computer', choiceComputer);
+        this.setPlayerImagChoice('human', choicePlayer);
+        const winner = this.getWinner(choicePlayer, choiceComputer);
+        this.applyGameResult(winner);
+        this.renderGameResult(winner);
     }
 
     getWinner = (playerChoice: GameChoice, computerChoice: GameChoice): GameWinner => {
-
         if (computerChoice === "rock" && playerChoice === "paper" || computerChoice === "paper" && playerChoice === "scissors" || computerChoice === "scissors" && playerChoice === "rock") {
             return "player";
         } else if (playerChoice === computerChoice) {
@@ -55,56 +46,70 @@ class Game {
         }
     }
 
-    renderGameResult = (winner: GameWinner): void => {
+    setPlayerImagChoice(player: 'human' | 'computer', choice: GameChoice | 'question') {
+        const image = this.element.querySelector<HTMLImageElement>(`.${player}Player__image`);
+        image.src = `images/${choice}.png`;
+    }
+
+    applyGameResult(winner: GameWinner): void {
         this.rounds++;
-        roundCounter.textContent = `Round ${this.rounds}`;
 
         if (winner === "player") {
             this.player.score++;
-            this.playerWins();
-            description.textContent = `${this.player.userName} wins this round!`;
         } else if (winner === "computer") {
             this.computer.score++;
-            this.computerWins();
         } else {
             this.tiesScore++;
-            this.noWinner();
+        }
+    }
+
+    renderGameResult(winner: GameWinner | 'initial'): void {
+        // DISPLAYS NAMES AND COUNTERS
+        const winPlayer = this.element.querySelector('.player__win-counter');
+        const winComputer = this.element.querySelector('.computer__win-counter');
+        const roundCounter = this.element.querySelector('.round__counter');
+        const tiesCounter = this.element.querySelector('.ties__counter');
+        winPlayer.textContent = `${this.player.score}`;
+        winComputer.textContent = `${this.computer.score}`;
+        roundCounter.textContent = `Round ${this.rounds}`;
+        tiesCounter.textContent = `${this.tiesScore}`;
+
+        // CONTAINER
+        const description = this.element.querySelector(
+            '.current-winner'
+        );
+        const humanPlayerBox = this.element.querySelector<HTMLElement>('.player');
+        const computerPlayerBox = this.element.querySelector<HTMLElement>('.computer');
+
+        if (winner === "initial") {
+            description.textContent = `Who wins this round?`;
+            humanPlayerBox.classList.remove('player--has-won');
+            computerPlayerBox.classList.remove("computer--has-won");
+        } else if (winner === "player") {
+            description.textContent = `${this.player.userName} wins this round!`;
+            humanPlayerBox.classList.add('player--has-won');
+            computerPlayerBox.classList.remove("computer--has-won");
+        } else if (winner === "computer") {
+            description.textContent = `Computer wins this round!`;
+            computerPlayerBox.classList.add("computer--has-won");
+            humanPlayerBox.classList.remove('player--has-won');
+        } else {
+            description.textContent = `Nobody wins this round!`;
+            humanPlayerBox.classList.remove("player--has-won");
+            computerPlayerBox.classList.remove("computer--has-won");
         }
     };
 
-    playerWins = () => {
-        winPlayer.textContent = `${this.player.score}`;
-        humanPlayerBox.classList.add('player--has-won');
-        computerPlayerBox.classList.remove("computer--has-won");
-    };
-
-    computerWins = () => {
-        winComputer.textContent = `${this.computer.score}`;
-        description.textContent = `Computer wins this round!`;
-        computerPlayerBox.classList.add("computer--has-won");
-        humanPlayerBox.classList.remove('player--has-won');
-    };
-
-    noWinner = () => {
-        tiesCounter.textContent = `${this.tiesScore}`;
-        humanPlayerBox.classList.remove("player--has-won");
-        computerPlayerBox.classList.remove("computer--has-won");
-        description.textContent = `Nobody wins this round!`;
-    };
-
     newGame = () => {
-        tiesCounter.textContent = `${this.tiesScore = 0}`;
-        winComputer.textContent = `${this.computer.score = 0}`;
-        winPlayer.textContent = `${this.player.score = 0}`;
-        roundCounter.textContent = `Round ${this.rounds = 1}`;
-        description.textContent = `Who wins this round?`;
-        humanPlayerBox.classList.remove('player--has-won');
-        computerPlayerBox.classList.remove("computer--has-won");
-        humanPlayerImage.src = 'images/question.png';
-        computerPlayerImage.src = 'images/question.png';
-    }
+        this.rounds = 1;
+        this.tiesScore = 0;
+        this.player.score = 0;
+        this.computer.score = 0;
 
-    restart = () => btnRestart.addEventListener('click', this.newGame)
+        this.setPlayerImagChoice('computer', 'question');
+        this.setPlayerImagChoice('human', 'question');
+        this.renderGameResult('initial');
+    }
 }
 
 export default Game;
