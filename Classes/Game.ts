@@ -1,8 +1,8 @@
-import Player from "./Player.js";
-import Computer from "./Computer.js";
+import Player from './Player.js';
+import Computer from './Computer.js';
 
-type GameWinner = "player" | "computer" | "ties";
-export  type GameChoice = "rock" | "paper" | "scissors";
+type GameWinner = 'player' | 'computer' | 'ties';
+export  type GameChoice = 'rock' | 'paper' | 'scissors';
 
 class Game {
     element: Element;
@@ -37,12 +37,12 @@ class Game {
     }
 
     getWinner = (playerChoice: GameChoice, computerChoice: GameChoice): GameWinner => {
-        if (computerChoice === "rock" && playerChoice === "paper" || computerChoice === "paper" && playerChoice === "scissors" || computerChoice === "scissors" && playerChoice === "rock") {
-            return "player";
+        if (computerChoice === 'rock' && playerChoice === 'paper' || computerChoice === 'paper' && playerChoice === 'scissors' || computerChoice === 'scissors' && playerChoice === 'rock') {
+            return 'player';
         } else if (playerChoice === computerChoice) {
-            return "ties";
+            return 'ties';
         } else {
-            return "computer";
+            return 'computer';
         }
     }
 
@@ -54,9 +54,9 @@ class Game {
     applyGameResult(winner: GameWinner): void {
         this.rounds++;
 
-        if (winner === "player") {
+        if (winner === 'player') {
             this.player.score++;
-        } else if (winner === "computer") {
+        } else if (winner === 'computer') {
             this.computer.score++;
         } else {
             this.tiesScore++;
@@ -81,22 +81,22 @@ class Game {
         const humanPlayerBox = this.element.querySelector<HTMLElement>('.player');
         const computerPlayerBox = this.element.querySelector<HTMLElement>('.computer');
 
-        if (winner === "initial") {
+        if (winner === 'initial') {
             description.textContent = `Who wins this round?`;
             humanPlayerBox.classList.remove('player--has-won');
-            computerPlayerBox.classList.remove("computer--has-won");
-        } else if (winner === "player") {
+            computerPlayerBox.classList.remove('computer--has-won');
+        } else if (winner === 'player') {
             description.textContent = `${this.player.userName} wins this round!`;
             humanPlayerBox.classList.add('player--has-won');
-            computerPlayerBox.classList.remove("computer--has-won");
-        } else if (winner === "computer") {
+            computerPlayerBox.classList.remove('computer--has-won');
+        } else if (winner === 'computer') {
             description.textContent = `Computer wins this round!`;
-            computerPlayerBox.classList.add("computer--has-won");
+            computerPlayerBox.classList.add('computer--has-won');
             humanPlayerBox.classList.remove('player--has-won');
         } else {
             description.textContent = `Nobody wins this round!`;
-            humanPlayerBox.classList.remove("player--has-won");
-            computerPlayerBox.classList.remove("computer--has-won");
+            humanPlayerBox.classList.remove('player--has-won');
+            computerPlayerBox.classList.remove('computer--has-won');
         }
     };
 
